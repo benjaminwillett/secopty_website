@@ -1,4 +1,4 @@
-"""Browser smoke test for the Netopty site (Playwright + Chromium).
+"""Browser smoke test for the Secopty site (Playwright + Chromium).
 
     python tests/browser_smoke.py [--base http://127.0.0.1:5090] [--out DIR]
 
@@ -84,7 +84,7 @@ def run(base: str, out: Path) -> dict:
         check("sample report PDF not loaded initially", not any(".pdf" in u.lower() for u in requests))
 
         # ---------------------------------------------------------------- sample report download and findings
-        dl = page.locator('#sample-reports a[href="/samples/Netopty_Sample_Network_As-Built_Report.pdf"]')
+        dl = page.locator('#sample-reports a[href="/samples/Secopty_Sample_Network_As-Built_Report.pdf"]')
         dl.scroll_into_view_if_needed()
         check("download button visible in Sample Reports", dl.is_visible() and "Download full sample report" in dl.inner_text())
         with page.expect_download() as d_info:
@@ -92,9 +92,9 @@ def run(base: str, out: Path) -> dict:
         d = d_info.value
         saved = out / "downloaded_sample.pdf"
         d.save_as(str(saved))
-        public_pdf = Path(__file__).resolve().parents[1] / "public" / "samples" / "Netopty_Sample_Network_As-Built_Report.pdf"
+        public_pdf = Path(__file__).resolve().parents[1] / "public" / "samples" / "Secopty_Sample_Network_As-Built_Report.pdf"
         check("download saves the reviewed PDF under its published name",
-              d.suggested_filename == "Netopty_Sample_Network_As-Built_Report.pdf"
+              d.suggested_filename == "Secopty_Sample_Network_As-Built_Report.pdf"
               and saved.read_bytes() == public_pdf.read_bytes(), d.suggested_filename)
         saved.unlink()
         cards = page.locator("#findings .insights > li")

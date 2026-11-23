@@ -1,4 +1,4 @@
-name: Deploy Netopty static site
+name: Deploy Secopty static site
 
 on:
   push:
@@ -26,7 +26,7 @@ jobs:
         id: pages
       - name: Prepare the static site
         env:
-          NETOPTY_PAGES_URL: ${{ steps.pages.outputs.base_url }}
+          SECOPTY_PAGES_URL: ${{ steps.pages.outputs.base_url }}
         run: |
           cp -a public _site
           python - <<'PY'
@@ -36,7 +36,7 @@ jobs:
           from pathlib import Path
 
           root = Path('_site')
-          base = os.environ['NETOPTY_PAGES_URL'].rstrip('/') + '/'
+          base = os.environ['SECOPTY_PAGES_URL'].rstrip('/') + '/'
           page = root / 'index.html'
           html = page.read_text()
           html = re.sub(r'^ *<li><a[^\n]*href="#contact"[^\n]*</li>\n', '', html, flags=re.M)
@@ -44,7 +44,7 @@ jobs:
           html = re.sub(r'    <!-- Contact -->.*?(?=  </main>)', '', html, flags=re.S)
           html = html.replace('class="btn btn-secondary" href="#sample-reports"', 'class="btn btn-primary" href="#sample-reports"', 1)
           html = re.sub(r'(?<=[", ])/(?=(?:img|fonts|css|js|samples|demo)/|THIRD_PARTY_NOTICES)', '', html)
-          html = html.replace('https://netopty.com/', base)
+          html = html.replace('https://secopty.com/', base)
           if re.search(r'<form\b|data-enquiry|#contact', html):
               raise SystemExit('The published page still contains enquiry controls')
 
@@ -73,7 +73,7 @@ jobs:
           page.write_text(html)
 
           sitemap = root / 'sitemap.xml'
-          sitemap.write_text(sitemap.read_text().replace('https://netopty.com/', base))
+          sitemap.write_text(sitemap.read_text().replace('https://secopty.com/', base))
           (root / 'robots.txt').write_text(f'User-agent: *\nAllow: /\n\nSitemap: {base}sitemap.xml\n')
           (root / '.nojekyll').touch()
           PY

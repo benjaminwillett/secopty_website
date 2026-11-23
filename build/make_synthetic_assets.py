@@ -1,5 +1,5 @@
 """Builds the website's demonstration assets from the synthetic Riverside Technology Group
-network, rendered by the real, unmodified Netopty engine.
+network, rendered by the real, unmodified Secopty engine.
 
     python build/make_synthetic_assets.py [--stage all|engine|evidence|reports|vlan|demo|images|validate|check]
 
@@ -61,7 +61,7 @@ GALLERY = [
      "What a change or refresh project can rely on: confirmed facts, unknowns and the actions to close them, "
      "each with its evidence."),
 ]
-SAMPLE_PDF = PUBLIC / "samples" / "Netopty_Sample_Network_As-Built_Report.pdf"
+SAMPLE_PDF = PUBLIC / "samples" / "Secopty_Sample_Network_As-Built_Report.pdf"
 
 
 def reports() -> dict:
@@ -77,15 +77,15 @@ def reports() -> dict:
 # ------------------------------------------------------------------ stages
 def stage_engine():
     G.make_engine_copy()
-    logo = WORK / "netopty_logo.png"
+    logo = WORK / "secopty_logo.png"
     if not logo.exists():
         from playwright.sync_api import sync_playwright
-        mark = (PUBLIC / "img" / "netopty-mark.svg").read_text(encoding="utf-8")
+        mark = (PUBLIC / "img" / "secopty-mark.svg").read_text(encoding="utf-8")
         font = (PUBLIC / "fonts" / "poppins-latin-600.woff2").as_uri()
         html = (f"<html><head><style>@font-face{{font-family:P;src:url('{font}')}}body{{margin:0}}"
                 "div{display:inline-flex;align-items:center;gap:22px;padding:6px 10px}svg{width:118px;height:118px}"
                 "span{font:600 116px/1 P,'Segoe UI',sans-serif;color:#0b2540;letter-spacing:-1px}</style></head>"
-                f"<body><div id=logo>{mark}<span>Netopty</span></div></body></html>")
+                f"<body><div id=logo>{mark}<span>Secopty</span></div></body></html>")
         with sync_playwright() as p:
             b = p.chromium.launch()
             page = b.new_page(device_scale_factor=2)
@@ -141,7 +141,7 @@ def stage_demo():
     # A page outside the artifact root already carries its own copy of the library.
     if n != 1 and plotly.replace("</script", "<\\/script") not in html and plotly not in html:
         raise SystemExit("the map page does not load plotly.min.js the expected way")
-    html = html.replace("<head>", "<head><title>Netopty interactive topology (synthetic demonstration network)</title>"
+    html = html.replace("<head>", "<head><title>Secopty interactive topology (synthetic demonstration network)</title>"
                         '<meta name="robots" content="noindex">', 1)
     # Two controls need an engineer's workstation (Visio files beside the map, a local
     # monitoring agent); the demo hides them, and the page says they are unavailable.
@@ -234,11 +234,11 @@ def _real_identifiers():
     import glob
     import pandas as pd
     # The leak check runs only on a machine that names its private rules, a file outside this repository.
-    rules_path = Path(os.environ.get("NETOPTY_PRIVATE_RULES") or "")
-    if not os.environ.get("NETOPTY_PRIVATE_RULES") or not rules_path.is_file():
+    rules_path = Path(os.environ.get("SECOPTY_PRIVATE_RULES") or "")
+    if not os.environ.get("SECOPTY_PRIVATE_RULES") or not rules_path.is_file():
         return None
     rules = json.loads(rules_path.read_text(encoding="utf-8"))
-    store = Path.home() / "AppData" / "Local" / "Netopty" / "artifacts"
+    store = Path.home() / "AppData" / "Local" / "Secopty" / "artifacts"
     roots = [p for p in store.glob("*") if p.is_dir() and not p.name.startswith(("_", "Riverside"))]
     names, serials, macs, ips = set(), set(), set(), set()
     for root in roots:
@@ -369,8 +369,8 @@ STAGES = {"engine": stage_engine, "evidence": stage_evidence, "reports": stage_r
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--stage", default="all")
-    ap.add_argument("--platform", help="the Netopty platform checkout (or set NETOPTY_PLATFORM_ROOT)")
-    ap.add_argument("--platform-python", help="a Python with the platform's requirements (or set NETOPTY_PLATFORM_PYTHON)")
+    ap.add_argument("--platform", help="the Secopty platform checkout (or set SECOPTY_PLATFORM_ROOT)")
+    ap.add_argument("--platform-python", help="a Python with the platform's requirements (or set SECOPTY_PLATFORM_PYTHON)")
     a = ap.parse_args(argv)
     if a.platform:
         os.environ[G.PLATFORM_SETTING] = a.platform

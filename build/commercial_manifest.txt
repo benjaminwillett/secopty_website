@@ -16,7 +16,7 @@ build/synthetic/evidence.py
 build/synthetic/network.py
 build/synthetic/validate.py
 deploy/Caddyfile
-deploy/netopty-site.service
+deploy/secopty-site.service
 public/THIRD_PARTY_NOTICES.txt
 public/css/site.css
 public/demo/topology.html
@@ -62,7 +62,7 @@ public/img/hero/page3-1200.webp
 public/img/hero/page3-480.webp
 public/img/hero/page3-640.webp
 public/img/hero/page3-full.webp
-public/img/netopty-mark.svg
+public/img/secopty-mark.svg
 public/img/network-texture.svg
 public/img/og-image.png
 public/img/topology-poster-1280.webp
@@ -88,7 +88,7 @@ public/img/vendors/vmware-nsx.svg
 public/index.html
 public/js/site.js
 public/robots.txt
-public/samples/Netopty_Sample_Network_As-Built_Report.pdf
+public/samples/Secopty_Sample_Network_As-Built_Report.pdf
 public/sitemap.xml
 pytest.ini
 requirements-build.txt

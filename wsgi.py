@@ -5,7 +5,7 @@
         --clear-untrusted-proxy-headers wsgi:app          (one command line)
 
 waitress removes X-Forwarded-* headers from untrusted peers, so behind a reverse proxy
-the --trusted-proxy flags are required (with NETOPTY_TRUST_PROXY=1) for HTTPS detection
+the --trusted-proxy flags are required (with SECOPTY_TRUST_PROXY=1) for HTTPS detection
 and the per-visitor rate limit. Use a single waitress process: the rate limit is in memory.
 """
 import logging
@@ -18,10 +18,10 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name
 _problems = production_problems(env_config())
 if _problems:
     for p in _problems:
-        logging.getLogger("netopty_site").error("configuration: %s", p)
-    sys.exit("Netopty site: refusing to start with an unsafe configuration (see the log above).")
+        logging.getLogger("secopty_site").error("configuration: %s", p)
+    sys.exit("Secopty site: refusing to start with an unsafe configuration (see the log above).")
 
 app = create_app()
 if not env_config()["SMTP_HOST"]:
-    logging.getLogger("netopty_site").warning(
-        "NETOPTY_SMTP_HOST is not set: the enquiry form will tell visitors their message was not sent")
+    logging.getLogger("secopty_site").warning(
+        "SECOPTY_SMTP_HOST is not set: the enquiry form will tell visitors their message was not sent")

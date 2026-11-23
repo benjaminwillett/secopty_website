@@ -22,7 +22,7 @@ def client():
 
 
 def test_sample_report_is_the_reviewed_file():
-    assert SAMPLE.name == "Netopty_Sample_Network_As-Built_Report.pdf"
+    assert SAMPLE.name == "Secopty_Sample_Network_As-Built_Report.pdf"
     data = SAMPLE.read_bytes()
     assert data.startswith(b"%PDF-")
     approved = package_release.APPROVED_DOCUMENTS["public/" + server.SAMPLE_REPORT]
@@ -39,14 +39,14 @@ def test_sample_report_downloads_as_an_attachment():
     r = client().get("/" + server.SAMPLE_REPORT)
     assert r.status_code == 200
     assert r.mimetype == "application/pdf"
-    assert r.headers["Content-Disposition"] == 'attachment; filename="Netopty_Sample_Network_As-Built_Report.pdf"'
+    assert r.headers["Content-Disposition"] == 'attachment; filename="Secopty_Sample_Network_As-Built_Report.pdf"'
     assert r.headers["X-Content-Type-Options"] == "nosniff"
     assert r.headers["Cache-Control"] == "public, max-age=86400"
     assert r.data == SAMPLE.read_bytes()
 
 
-@pytest.mark.parametrize("path", ["/samples/other.pdf", "/samples/netopty_sample_network_as-built_report.PDF",
-                                  "/img/x.pdf", "/samples/../samples/Netopty_Sample_Network_As-Built_Report.pdf"])
+@pytest.mark.parametrize("path", ["/samples/other.pdf", "/samples/secopty_sample_network_as-built_report.PDF",
+                                  "/img/x.pdf", "/samples/../samples/Secopty_Sample_Network_As-Built_Report.pdf"])
 def test_no_other_pdf_path_is_served(path):
     assert client().get(path).status_code == 404
 
@@ -63,7 +63,7 @@ def test_packaging_includes_the_reviewed_sample():
 
 
 def test_download_button_needs_no_registration_and_does_not_preload():
-    link = re.search(r'<a [^>]*href="/samples/Netopty_Sample_Network_As-Built_Report\.pdf"[^>]*>(.*?)</a>', PAGE, re.S)
+    link = re.search(r'<a [^>]*href="/samples/Secopty_Sample_Network_As-Built_Report\.pdf"[^>]*>(.*?)</a>', PAGE, re.S)
     assert link and "Download full sample report" in link.group(1)
     assert "download" in link.group(0)
     start = PAGE.index('id="sample-reports"')

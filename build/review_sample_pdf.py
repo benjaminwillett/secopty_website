@@ -7,7 +7,7 @@ Every page counts as published: there is no leniency for unpublished pages. Chec
   * metadata and bookmarks: listed in full (they are synthetic or generic), scanned like text;
   * text of every page and every decompressed stream: workstation paths, user and account
     names, e-mail addresses, URLs, non-synthetic domains, the carrier name (P-02);
-  * comparison with the real customer identifiers on this machine (the file NETOPTY_PRIVATE_RULES names),
+  * comparison with the real customer identifiers on this machine (the file SECOPTY_PRIVATE_RULES names),
     as in make_synthetic_assets --stage check; matches print as salted hashes only.
 --thumbs renders every page for the visual review.
 Exit status 1 on any failure.
@@ -29,7 +29,7 @@ sys.path.insert(0, str(HERE))
 
 SYNTHETIC_DOMAINS = ("riverside.example", "example.com", "example.net", "example.org")
 PATTERNS = {
-    "workstation path": r"(?i)\b[a-z]:\\|\\users\\|/users/|appdata|netoptysitebuild|desktop[\\/]tools",
+    "workstation path": r"(?i)\b[a-z]:\\|\\users\\|/users/|appdata|secoptysitebuild|desktop[\\/]tools",
     "e-mail address": r"(?i)\b[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}\b",
     "URL": r"(?i)\b(?:https?|ftp|file)://[^\s)>\]]+",
 }
@@ -48,9 +48,9 @@ def carrier_words(text: str) -> list:
 
 def reviewer_patterns() -> dict:
     """The account running this review, plus any reviewer-specific terms: a JSON object of {kind: regex} in the file
-    NETOPTY_REVIEW_TERMS names, kept outside this repository."""
+    SECOPTY_REVIEW_TERMS names, kept outside this repository."""
     out = {"account name": rf"(?i)\b{re.escape(getpass.getuser())}\b"}
-    path = os.environ.get("NETOPTY_REVIEW_TERMS")
+    path = os.environ.get("SECOPTY_REVIEW_TERMS")
     if path:
         out.update(json.loads(Path(path).read_text(encoding="utf-8")))
     return out

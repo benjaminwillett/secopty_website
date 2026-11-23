@@ -1,6 +1,6 @@
 """Riverside Technology Group: a fictional multi-site enterprise network, designed from scratch.
 
-Everything here is invented for the Netopty website demonstration: sites, hostnames,
+Everything here is invented for the Secopty website demonstration: sites, hostnames,
 addresses, serial numbers, MAC addresses and topology. Nothing is derived from any
 customer network. The design is deterministic: build() always returns the same network,
 and the only pseudo-random values (serials, MACs) come from a hash of a fixed seed and
@@ -75,7 +75,7 @@ SITE_SERVICES = {
 
 def services(d) -> dict:
     """Syslog, trap and NTP targets for one device: the site standard, plus the configuration
-    drift a real estate accumulates (and Netopty reports): HQ's distribution pair also sends
+    drift a real estate accumulates (and Secopty reports): HQ's distribution pair also sends
     traps to the legacy receiver, two older access switches still log to a decommissioned
     collector, and the Building B Extreme switches were built from a different template."""
     out = {"syslog": list(SITE_SERVICES[d.site]["syslog"]), "traps": list(SITE_SERVICES[d.site]["traps"]),
@@ -278,7 +278,7 @@ def _mgmt(site, n):
 
 def _switch(net, site, platform, role, number, mgmt_host, room, members=1):
     code = SITES[site]["code"]
-    # Netopty tiers switches by name: "-cNN" is the core/distribution layer (it has no separate
+    # Secopty tiers switches by name: "-cNN" is the core/distribution layer (it has no separate
     # distribution role), so the HQ distribution pair is numbered c03/c04 after the cores.
     letter = {"core": "c", "distribution": "c", "access": "a"}[role]
     name = f"{HOST_PREFIX[platform]}-{code}-{letter}{number:02d}"
@@ -657,7 +657,7 @@ def build_north(net: Network):
     for sw in acc:
         for core in c:
             _uplink(net, sw, core, vlans=north_vlans + [60])
-    # FortiGate 100F HA pair (not collected: Netopty has no FortiGate collector) and the carrier CPE
+    # FortiGate 100F HA pair (not collected: Secopty has no FortiGate collector) and the carrier CPE
     for i, core in enumerate(c, start=1):
         fw = net.add(Device(f"fg100f-nth-f0{i}", s, "fg100f", "firewall", f"10.30.10.{250 + i}",
                             collected=False, room=rooms[0]))

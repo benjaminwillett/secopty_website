@@ -25,7 +25,7 @@ FORBIDDEN_NAMES = {"private_rules.json", ".env", "manifest.json"}
 FORBIDDEN_SUFFIXES = {".pdf", ".xlsx", ".json", ".dot", ".py", ".pyc", ".log", ".zip"}
 # public/ path -> SHA-256 of the reviewed file.
 APPROVED_DOCUMENTS = {
-    "public/samples/Netopty_Sample_Network_As-Built_Report.pdf": "f77bd74ca0b59ce7aeb1296402a69ae79a9fec6bbbae83c7b442aae0f8bfef33",
+    "public/samples/Secopty_Sample_Network_As-Built_Report.pdf": "f77bd74ca0b59ce7aeb1296402a69ae79a9fec6bbbae83c7b442aae0f8bfef33",
 }
 
 
@@ -53,7 +53,7 @@ def collect() -> list[Path]:
 def build(out: Path) -> Path:
     files = collect()
     out.mkdir(parents=True, exist_ok=True)
-    name = f"netopty-site-{time.strftime('%Y%m%d-%H%M%S')}"
+    name = f"secopty-site-{time.strftime('%Y%m%d-%H%M%S')}"
     archive = out / f"{name}.zip"
     lines = []
     with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as z:

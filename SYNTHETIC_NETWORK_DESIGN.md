@@ -1,6 +1,6 @@
 # Riverside Technology Group: synthetic network design
 
-Riverside Technology Group (RTG) is a **fictional** medium-sized enterprise. Its network was designed from first principles for the Netopty website demonstration. No customer network, configuration, topology, address plan or inventory was used as input. The design is code, in `build/synthetic/network.py`, and is deterministic: every build produces the identical network.
+Riverside Technology Group (RTG) is a **fictional** medium-sized enterprise. Its network was designed from first principles for the Secopty website demonstration. No customer network, configuration, topology, address plan or inventory was used as input. The design is code, in `build/synthetic/network.py`, and is deterministic: every build produces the identical network.
 
 ## 1. Sites
 
@@ -20,8 +20,8 @@ All addresses and room names are fictional (for example "1 Riverside Way, Rivert
 |---|---:|---|
 | Core and distribution switches | 10 | 8 core, 2 distribution |
 | Access and top-of-rack switches | 34 | Two HQ access switches are two-member stacks |
-| Firewalls | 8 | 5 Palo Alto (collected); 3 Fortinet (seen as neighbours: Netopty has no FortiGate collector) |
-| WAN routers | 7 | Carrier-managed CPE, seen as neighbours on each site's WAN-edge VLAN (Netopty has no router device kind) |
+| Firewalls | 8 | 5 Palo Alto (collected); 3 Fortinet (seen as neighbours: Secopty has no FortiGate collector) |
+| WAN routers | 7 | Carrier-managed CPE, seen as neighbours on each site's WAN-edge VLAN (Secopty has no router device kind) |
 | Wireless access points | 60 | Cisco C9120AXI on Cisco switches, Extreme AP5050U on Extreme switches |
 | Other devices | 5 | 2 printers, a door-access controller, a video recorder, a UPS card |
 
@@ -144,7 +144,7 @@ This matches the engine's tiering (`-cNN` is the core layer). For that reason th
 | HQ core 2 ↔ South core 1 | Carrier Ethernet private line (LLDP-transparent) | VLAN 902, 10.255.2.0/30, OSPF area 0 |
 | Branch | IPsec VPN over the internet (FortiGate) | No layer-2 adjacency; the branch is its own island in the map |
 
-Each site's report shows the far end of an inter-site link as an uncollected neighbour, as Netopty would for a real site.
+Each site's report shows the far end of an inter-site link as an uncollected neighbour, as Secopty would for a real site.
 
 ## 4. Addressing
 
@@ -202,7 +202,7 @@ Everything lives in DC1's infrastructure-services VLAN (10.21.100.0/24):
 - South uses the secondary, and sends traps to both receivers.
 - The branch uses the primary and legacy v2c traps.
 
-**Deliberate configuration drift at HQ.** Netopty exists to find drift, so HQ has some:
+**Deliberate configuration drift at HQ.** Secopty exists to find drift, so HQ has some:
 - the distribution pair also sends traps to the legacy v2c receiver;
 - two older access switches (`c9300-hq-a07`/`a08`) still log to a decommissioned collector (10.21.100.20);
 - the Building B Extreme switches came from a different template, with the secondary syslog server and one NTP server.

@@ -1,4 +1,4 @@
-"""Runs the real, unmodified Netopty engine over the synthetic evidence, in isolation.
+"""Runs the real, unmodified Secopty engine over the synthetic evidence, in isolation.
 
 1. The product's code is copied from the checkout into an engine folder by an allowlist:
    Python source plus four named reference files. Customer data that the engine would
@@ -23,10 +23,10 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 SITE_ROOT = HERE.parents[1]
-PLATFORM_SETTING = "NETOPTY_PLATFORM_ROOT"     # the Netopty platform checkout (read only)
-PYTHON_SETTING = "NETOPTY_PLATFORM_PYTHON"     # a Python with the platform's requirements
-WORK = Path(os.environ.get("NETOPTY_SYNTH_WORK") or
-            Path(os.environ.get("LOCALAPPDATA", Path.home())) / "NetoptySiteBuild" / "synthetic")
+PLATFORM_SETTING = "SECOPTY_PLATFORM_ROOT"     # the Secopty platform checkout (read only)
+PYTHON_SETTING = "SECOPTY_PLATFORM_PYTHON"     # a Python with the platform's requirements
+WORK = Path(os.environ.get("SECOPTY_SYNTH_WORK") or
+            Path(os.environ.get("LOCALAPPDATA", Path.home())) / "SecoptySiteBuild" / "synthetic")
 ENGINE = WORK / "engine"
 CUSTOMER = "Riverside Technology Group"
 
@@ -43,7 +43,7 @@ PLOTLY_LIBRARY = "_assets/plotly.min.js"
 REFERENCE_DATE = datetime(2026, 10, 20, 2, 0).timestamp()      # the evidence's collection date
 # Never present in the copy (checked after copying).
 FORBIDDEN = ["All_Sites", "Panorama", "known_hosts", "logs", "backups", "config", ".env", ".env.enc",
-             "*Customer_Portal_Data_Services*.csv", "*Device Schedule*", "company_logo.png", "netopty_site"]
+             "*Customer_Portal_Data_Services*.csv", "*Device Schedule*", "company_logo.png", "secopty_site"]
 
 sys.path.insert(0, str(HERE))
 import network as N        # noqa: E402
@@ -54,10 +54,10 @@ def platform_root() -> Path:
     """The platform checkout the build reads: explicit, never a folder that happens to be nearby."""
     value = os.environ.get(PLATFORM_SETTING)
     if not value:
-        raise SystemExit(f"set {PLATFORM_SETTING} (or pass --platform) to the Netopty platform checkout")
+        raise SystemExit(f"set {PLATFORM_SETTING} (or pass --platform) to the Secopty platform checkout")
     root = Path(value).resolve()
-    if not (root / "netopty.py").is_file():
-        raise SystemExit(f"{PLATFORM_SETTING}={root}: not a Netopty platform checkout (no netopty.py)")
+    if not (root / "secopty.py").is_file():
+        raise SystemExit(f"{PLATFORM_SETTING}={root}: not a Secopty platform checkout (no secopty.py)")
     return root
 
 
@@ -119,19 +119,19 @@ def verify_engine_copy():
 
 def env() -> dict:
     # PYTHONPATH too: the engine uses the platform's own environment, and its evidence boundary refuses any other path.
-    e = {k: v for k, v in os.environ.items() if not k.startswith(("NETOPTY_", "ASBUILT_")) and k != "PYTHONPATH"}
+    e = {k: v for k, v in os.environ.items() if not k.startswith(("SECOPTY_", "ASBUILT_")) and k != "PYTHONPATH"}
     e.update({
-        "NETOPTY_ARTIFACT_ROOT": str(WORK / "artifacts"),
+        "SECOPTY_ARTIFACT_ROOT": str(WORK / "artifacts"),
         # Never this machine's configuration: a customer's conventions or WAN clouds must not reach the demo.
-        "NETOPTY_HOME": str(WORK / "home"),
-        "NETOPTY_NAMING_CONVENTIONS": "none",
-        "NETOPTY_CUSTOMER": CUSTOMER,
-        "NETOPTY_SITE_MAP": str(WORK / "site_map.json"),
-        "NETOPTY_WAN_EXPORT": str(WORK / "no-wan-export.csv"),     # does not exist: no WAN data
-        "NETOPTY_NO_ENV_FILES": "1",
+        "SECOPTY_HOME": str(WORK / "home"),
+        "SECOPTY_NAMING_CONVENTIONS": "none",
+        "SECOPTY_CUSTOMER": CUSTOMER,
+        "SECOPTY_SITE_MAP": str(WORK / "site_map.json"),
+        "SECOPTY_WAN_EXPORT": str(WORK / "no-wan-export.csv"),     # does not exist: no WAN data
+        "SECOPTY_NO_ENV_FILES": "1",
         "ASBUILT_PANORAMA": "offline",
-        "ASBUILT_LOGO": str(WORK / "netopty_logo.png"),
-        "ASBUILT_AUTHOR": "Netopty",
+        "ASBUILT_LOGO": str(WORK / "secopty_logo.png"),
+        "ASBUILT_AUTHOR": "Secopty",
         # The engine's explicit sample setting: the reports say on the cover, in every footer and in
         # their metadata that they are a public synthetic sample (never inferred from a name).
         "ASBUILT_PUBLICATION": "synthetic-sample",
@@ -202,7 +202,7 @@ JULY_COLLECTED = (2026, 7, 20, 10, 14)
 JULY_DOCUMENTED = (2026, 7, 20, 10, 40, 0)
 
 # The engine's own document step, as the menu runs it after a live collection ("Document
-# network": netopty_services.document_from_collection with history recording on), on the July
+# network": secopty_services.document_from_collection with history recording on), on the July
 # evidence. Two differences from a live run, both so the build never reaches anything outside
 # this machine and the record carries the collection's date: NetBox and the interactive maps are
 # not consulted (with_netbox / with_maps off), and the engine's clock reads the July time.
@@ -215,7 +215,7 @@ class _Clock(_dt.datetime):
     def now(cls, tz=None):
         return T if tz is None else T.replace(tzinfo=tz)
 
-import netopty_services as svc, asbuilt_extras, asbuilt_pdf, asbuilt_snapshot, asbuilt_findings, pdf_exporter
+import secopty_services as svc, asbuilt_extras, asbuilt_pdf, asbuilt_snapshot, asbuilt_findings, pdf_exporter
 _real = _dt.datetime
 for m in list(sys.modules.values()):
     if m is not _dt and getattr(m, "datetime", None) is _real:
@@ -319,9 +319,9 @@ def run_reports(sites=None) -> dict:
 
 
 def _run_report(site, out, root) -> Path:
-    r = subprocess.run([platform_python(), "netopty.py", "report", "--site", site, "--output", str(out / site),
+    r = subprocess.run([platform_python(), "secopty.py", "report", "--site", site, "--output", str(out / site),
                         "--runs-dir", str(WORK / "runs"), "--json", str(WORK / f"report_run_{site}.json")],
-                       cwd=ENGINE, env={**env(), "NETOPTY_ARTIFACT_ROOT": root},
+                       cwd=ENGINE, env={**env(), "SECOPTY_ARTIFACT_ROOT": root},
                        capture_output=True, text=True, encoding="utf-8")
     found = sorted((out / site).rglob("devices_report_*.pdf"))
     status = [ln for ln in r.stdout.splitlines() if "Status:" in ln or "validation" in ln.lower()]

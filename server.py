@@ -1,4 +1,4 @@
-"""Netopty marketing site: static files plus the enquiry endpoint.
+"""Secopty marketing site: static files plus the enquiry endpoint.
 
 Only the public/ directory is served. Enquiries are delivered by SMTP using
 settings from the environment (see .env.example). When SMTP is not configured
@@ -30,8 +30,8 @@ from werkzeug.exceptions import HTTPException
 
 PUBLIC = Path(__file__).resolve().parent / "public"
 # The one downloadable document: the reviewed synthetic sample report.
-SAMPLE_REPORT = "samples/Netopty_Sample_Network_As-Built_Report.pdf"
-log = logging.getLogger("netopty_site")
+SAMPLE_REPORT = "samples/Secopty_Sample_Network_As-Built_Report.pdf"
+log = logging.getLogger("secopty_site")
 
 ENQUIRY_TYPES = {
     "assessment": "Request a network assessment",
@@ -79,16 +79,16 @@ DEMO_CSP = (
 
 def env_config() -> dict:
     return dict(
-        FORM_SECRET=os.environ.get("NETOPTY_FORM_SECRET", ""),
-        SMTP_HOST=os.environ.get("NETOPTY_SMTP_HOST", ""),
-        SMTP_PORT=int(os.environ.get("NETOPTY_SMTP_PORT", "587")),
-        SMTP_USERNAME=os.environ.get("NETOPTY_SMTP_USERNAME", ""),
-        SMTP_PASSWORD=os.environ.get("NETOPTY_SMTP_PASSWORD", ""),
-        SMTP_SECURITY=os.environ.get("NETOPTY_SMTP_SECURITY", "starttls").strip().lower(),
-        MAIL_FROM=os.environ.get("NETOPTY_MAIL_FROM", ""),
-        MAIL_TO=os.environ.get("NETOPTY_MAIL_TO", ""),
-        HSTS_MAX_AGE=int(os.environ.get("NETOPTY_HSTS_MAX_AGE", "31536000")),
-        TRUST_PROXY=os.environ.get("NETOPTY_TRUST_PROXY") == "1",
+        FORM_SECRET=os.environ.get("SECOPTY_FORM_SECRET", ""),
+        SMTP_HOST=os.environ.get("SECOPTY_SMTP_HOST", ""),
+        SMTP_PORT=int(os.environ.get("SECOPTY_SMTP_PORT", "587")),
+        SMTP_USERNAME=os.environ.get("SECOPTY_SMTP_USERNAME", ""),
+        SMTP_PASSWORD=os.environ.get("SECOPTY_SMTP_PASSWORD", ""),
+        SMTP_SECURITY=os.environ.get("SECOPTY_SMTP_SECURITY", "starttls").strip().lower(),
+        MAIL_FROM=os.environ.get("SECOPTY_MAIL_FROM", ""),
+        MAIL_TO=os.environ.get("SECOPTY_MAIL_TO", ""),
+        HSTS_MAX_AGE=int(os.environ.get("SECOPTY_HSTS_MAX_AGE", "31536000")),
+        TRUST_PROXY=os.environ.get("SECOPTY_TRUST_PROXY") == "1",
     )
 
 
@@ -96,16 +96,16 @@ def production_problems(config: dict) -> list[str]:
     """What stops this configuration being used in production (empty when it is fine)."""
     problems = []
     if len(config.get("FORM_SECRET") or "") < 32:
-        problems.append("NETOPTY_FORM_SECRET must be set to a random value of at least 32 characters "
+        problems.append("SECOPTY_FORM_SECRET must be set to a random value of at least 32 characters "
                         "(it signs form tokens and must be the same for every worker)")
     if config.get("SMTP_SECURITY") not in SMTP_SECURITY:
-        problems.append(f"NETOPTY_SMTP_SECURITY must be one of {', '.join(SMTP_SECURITY)}")
+        problems.append(f"SECOPTY_SMTP_SECURITY must be one of {', '.join(SMTP_SECURITY)}")
     if config.get("SMTP_SECURITY") == "none" and config.get("SMTP_USERNAME"):
-        problems.append("NETOPTY_SMTP_SECURITY=none would send the SMTP password unencrypted")
+        problems.append("SECOPTY_SMTP_SECURITY=none would send the SMTP password unencrypted")
     if config.get("SMTP_HOST") and not (config.get("MAIL_FROM") and config.get("MAIL_TO")):
-        problems.append("NETOPTY_MAIL_FROM and NETOPTY_MAIL_TO are required when NETOPTY_SMTP_HOST is set")
+        problems.append("SECOPTY_MAIL_FROM and SECOPTY_MAIL_TO are required when SECOPTY_SMTP_HOST is set")
     if config.get("SMTP_USERNAME") and not config.get("SMTP_PASSWORD"):
-        problems.append("NETOPTY_SMTP_PASSWORD is empty but NETOPTY_SMTP_USERNAME is set")
+        problems.append("SECOPTY_SMTP_PASSWORD is empty but SECOPTY_SMTP_USERNAME is set")
     return problems
 
 
@@ -212,7 +212,7 @@ def create_app(config: dict | None = None) -> Flask:
         if request.path.startswith("/api/"):
             return jsonify(ok=False, message=exc.name), exc.code
         return (f"<!doctype html><meta charset=utf-8><title>{exc.code} {exc.name}</title>"
-                f"<h1>{exc.name}</h1><p><a href=\"/\">Netopty home</a></p>"), exc.code
+                f"<h1>{exc.name}</h1><p><a href=\"/\">Secopty home</a></p>"), exc.code
 
     @app.errorhandler(Exception)
     def server_error(exc: Exception):
@@ -237,7 +237,7 @@ def create_app(config: dict | None = None) -> Flask:
     @app.post("/api/enquiry")
     def enquiry():
         if cross_site():
-            return jsonify(ok=False, message="Enquiries must be sent from the Netopty website."), 403
+            return jsonify(ok=False, message="Enquiries must be sent from the Secopty website."), 403
         data = request.get_json(silent=True)
         if not isinstance(data, dict):
             data = request.form.to_dict()
@@ -293,7 +293,7 @@ def create_app(config: dict | None = None) -> Flask:
 
         kind = ENQUIRY_TYPES[values["enquiry_type"]]
         msg = EmailMessage()
-        msg["Subject"] = f"Netopty enquiry: {kind} from {values['company']}"[:200]
+        msg["Subject"] = f"Secopty enquiry: {kind} from {values['company']}"[:200]
         msg["From"] = app.config["MAIL_FROM"] or "website@example.invalid"   # tests only: SENDER set
         msg["To"] = app.config["MAIL_TO"] or "enquiries@example.invalid"
         msg["Reply-To"] = values["email"]

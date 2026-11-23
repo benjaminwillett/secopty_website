@@ -1,5 +1,5 @@
 # The asset build and the tests, not the running site (requirements.txt). The engine itself runs in the
-# platform's own environment (NETOPTY_PLATFORM_PYTHON): the two sets of pins differ, so never install them together.
+# platform's own environment (SECOPTY_PLATFORM_PYTHON): the two sets of pins differ, so never install them together.
 -r requirements.txt
 pandas==2.2.2
 openpyxl==3.1.2

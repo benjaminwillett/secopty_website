@@ -1,13 +1,13 @@
 # Synthetic evidence generator
 
-The website's demonstration assets are produced by the real Netopty engine from **synthetic evidence**: files in exactly the formats Netopty's collectors write, generated from the fictional Riverside Technology Group design (SYNTHETIC_NETWORK_DESIGN.md). The engine is not modified. It reads the files as it would read any saved collection.
+The website's demonstration assets are produced by the real Secopty engine from **synthetic evidence**: files in exactly the formats Secopty's collectors write, generated from the fictional Riverside Technology Group design (SYNTHETIC_NETWORK_DESIGN.md). The engine is not modified. It reads the files as it would read any saved collection.
 
 ## Components
 
 | File | Purpose |
 |---|---|
 | `build/synthetic/network.py` | The network design as code. `build()` returns sites, devices, links, VLANs, addresses and services. |
-| `build/synthetic/evidence.py` | Writes the design as Netopty evidence: audit workbooks, mapping workbook, raw command output, backups and topology-builder inputs. |
+| `build/synthetic/evidence.py` | Writes the design as Secopty evidence: audit workbooks, mapping workbook, raw command output, backups and topology-builder inputs. |
 | `build/synthetic/engine.py` | Copies the product's code into an isolated engine folder (allowlist), registers the synthetic customer and sites, builds maps and runs reports. |
 | `build/synthetic/validate.py` | Consistency checks of the design and the written evidence. |
 | `build/make_synthetic_assets.py` | The pipeline: engine → evidence → reports → VLAN maps → demo → images → validate → leak check. |
@@ -80,19 +80,19 @@ Every other collected asset has an active contract. In July both of c9300-hq-a03
 **Where the engine's model shapes the design:**
 - **Fortinet:** there is no FortiGate collector, so FortiGates are LLDP neighbours.
 - **Routers:** there is no router device kind, so routers are uncollected carrier CPE.
-- **Distribution tier:** Netopty tiers by name (`-cNN` is core), so distribution switches are named `-c03/-c04`.
+- **Distribution tier:** Secopty tiers by name (`-cNN` is core), so distribution switches are named `-c03/-c04`.
 - **Extreme interfaces:** Fabric Engine (VOSS) names its ports `1/1`, not EXOS-style `1:1`.
 
 ## Running it
 
 ```bash
-cd netopty_website
+cd secopty_website
 python build/make_synthetic_assets.py              # every stage, about 15 minutes
 python build/make_synthetic_assets.py --stage validate
 python -m pytest tests                             # includes tests/test_synthetic.py
 ```
 
-Work files go to `%LOCALAPPDATA%\NetoptySiteBuild\synthetic` (override with `NETOPTY_SYNTH_WORK`):
+Work files go to `%LOCALAPPDATA%\SecoptySiteBuild\synthetic` (override with `SECOPTY_SYNTH_WORK`):
 - `engine/` is the isolated engine copy;
 - `artifacts/` is the synthetic customer;
 - `reports/` holds the five reports;
@@ -109,9 +109,9 @@ The engine refuses artifact roots inside its own checkout, so the work folder mu
   - `config/` (site map), `.env`, `known_hosts`, `logs`, `backups`.
 - **`verify_engine_copy()` rejects** any other file.
 - **The engine runs with:**
-  - a synthetic customer (`NETOPTY_CUSTOMER`) and a synthetic site map;
+  - a synthetic customer (`SECOPTY_CUSTOMER`) and a synthetic site map;
   - a non-existent WAN export path;
-  - `ASBUILT_PANORAMA=offline` and `NETOPTY_NO_ENV_FILES=1`.
+  - `ASBUILT_PANORAMA=offline` and `SECOPTY_NO_ENV_FILES=1`.
 
   So the offline report cannot read customer reference data even by its fallback paths.
 
@@ -121,7 +121,7 @@ The engine refuses artifact roots inside its own checkout, so the work folder mu
 - Graphviz `dot`.
 - Playwright with Chromium, and Edge or Chrome for the engine's VLAN-map snapshotter.
 - `pypdfium2`, installed beside the build scripts: `pip install --target build/.work/pylib pypdfium2`.
-- The Netopty product checkout one folder above `netopty_site/`, read only.
+- The Secopty product checkout one folder above `secopty_site/`, read only.
 
 ## Validation
 

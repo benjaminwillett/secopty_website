@@ -3,4 +3,4 @@ Allow: /
 Disallow: /api/
 Disallow: /demo/
 
-Sitemap: https://netopty.com/sitemap.xml
+Sitemap: https://secopty.com/sitemap.xml

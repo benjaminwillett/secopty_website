@@ -1,4 +1,4 @@
-"""Writes the synthetic network (network.py) as saved Netopty evidence, one folder per site.
+"""Writes the synthetic network (network.py) as saved Secopty evidence, one folder per site.
 
 The files follow the formats the product's collectors write and its offline report reads
 (documented in SYNTHETIC_EVIDENCE_GENERATOR.md): switch audit workbooks, the CDP/LLDP mapping

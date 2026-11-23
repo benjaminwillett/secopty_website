@@ -10,8 +10,8 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
-PLATFORM = os.environ.get("NETOPTY_PLATFORM_ROOT")
-needs_platform = pytest.mark.skipif(not PLATFORM, reason="reads the engine's parsers: set NETOPTY_PLATFORM_ROOT to a platform checkout")
+PLATFORM = os.environ.get("SECOPTY_PLATFORM_ROOT")
+needs_platform = pytest.mark.skipif(not PLATFORM, reason="reads the engine's parsers: set SECOPTY_PLATFORM_ROOT to a platform checkout")
 sys.path.insert(0, str(ROOT / "build" / "synthetic"))
 pd = pytest.importorskip("pandas")
 import network as N    # noqa: E402
@@ -146,7 +146,7 @@ def test_public_addresses_are_documentation_ranges(net):
                 assert ip.is_private or any(ip in r for r in V.DOC_RANGES), (d.hostname, a)
 
 
-RULES = Path(os.environ.get("NETOPTY_PRIVATE_RULES") or ROOT / "no-private-rules")
+RULES = Path(os.environ.get("SECOPTY_PRIVATE_RULES") or ROOT / "no-private-rules")
 
 
 @pytest.mark.skipif(not RULES.exists(), reason="private rules are only on the asset build machine")
@@ -679,7 +679,7 @@ def test_history_generation_runs_on_either_engine(tmp_path, monkeypatch, with_sc
     services = _STUB_SERVICES.replace("LIVE_GATHER = {}", "LIVE_GATHER = {}\nREQUIRES_SCOPE = False")
     if with_scope:
         services += _STUB_SCOPE
-    (eng / "netopty_services.py").write_text(services, encoding="utf-8")
+    (eng / "secopty_services.py").write_text(services, encoding="utf-8")
     for name in ("asbuilt_pdf", "asbuilt_snapshot", "asbuilt_findings", "pdf_exporter"):
         (eng / f"{name}.py").write_text("from datetime import datetime\n", encoding="utf-8")
     root = tmp_path / "artifacts"
@@ -696,7 +696,7 @@ def test_history_generation_fails_loudly_when_the_engine_cannot_document(tmp_pat
     eng = tmp_path / "engine"
     eng.mkdir()
     (eng / "asbuilt_extras.py").write_text(_STUB_EXTRAS, encoding="utf-8")
-    (eng / "netopty_services.py").write_text(_STUB_SERVICES.replace("LIVE_GATHER = {}", "LIVE_GATHER = {}\nREQUIRES_SCOPE = True"),
+    (eng / "secopty_services.py").write_text(_STUB_SERVICES.replace("LIVE_GATHER = {}", "LIVE_GATHER = {}\nREQUIRES_SCOPE = True"),
                                              encoding="utf-8")       # needs a scope it cannot be given
     for name in ("asbuilt_pdf", "asbuilt_snapshot", "asbuilt_findings", "pdf_exporter"):
         (eng / f"{name}.py").write_text("", encoding="utf-8")

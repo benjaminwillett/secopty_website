@@ -1,4 +1,4 @@
-// Netopty marketing site: navigation, lightbox, topology demo and enquiry form.
+// Secopty marketing site: navigation, lightbox, topology demo and enquiry form.
 (function () {
   "use strict";
 
@@ -247,7 +247,7 @@
     if (!stage || stage.querySelector("iframe")) return;
     var frame = document.createElement("iframe");
     frame.src = "/demo/topology.html";
-    frame.title = "Interactive Netopty topology map of the synthetic Riverside Technology Group network";
+    frame.title = "Interactive Secopty topology map of the synthetic Riverside Technology Group network";
     frame.setAttribute("sandbox", "allow-scripts");
     frame.setAttribute("referrerpolicy", "no-referrer");
     var overlay = $(".topology-overlay", stage);

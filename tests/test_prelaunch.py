@@ -22,9 +22,9 @@ import server  # noqa: E402
 PUBLIC = ROOT / "public"
 GOOD = {"name": "Alex Example", "company": "Example Pty Ltd", "email": "alex@example.com",
         "enquiry_type": "demo", "message": "We would like to see a demonstration for three sites."}
-PROD_ENV = {"NETOPTY_FORM_SECRET": "x" * 48, "NETOPTY_SMTP_HOST": "smtp.example.com",
-            "NETOPTY_MAIL_FROM": "website@example.com", "NETOPTY_MAIL_TO": "sales@example.com",
-            "NETOPTY_SMTP_USERNAME": "website@example.com", "NETOPTY_SMTP_PASSWORD": "not-a-real-password"}
+PROD_ENV = {"SECOPTY_FORM_SECRET": "x" * 48, "SECOPTY_SMTP_HOST": "smtp.example.com",
+            "SECOPTY_MAIL_FROM": "website@example.com", "SECOPTY_MAIL_TO": "sales@example.com",
+            "SECOPTY_SMTP_USERNAME": "website@example.com", "SECOPTY_SMTP_PASSWORD": "not-a-real-password"}
 
 
 def client(**config):
@@ -79,7 +79,7 @@ def test_every_failure_says_not_sent(aged):
 def test_hsts_only_over_https():
     c = client()
     assert "Strict-Transport-Security" not in c.get("/").headers
-    r = c.get("/", base_url="https://netopty.com")
+    r = c.get("/", base_url="https://secopty.com")
     assert r.headers["Strict-Transport-Security"] == "max-age=31536000"
 
 
@@ -163,7 +163,7 @@ def test_production_problems():
 
 
 def _import_wsgi(env):
-    clean = {k: v for k, v in os.environ.items() if not k.startswith("NETOPTY_")}
+    clean = {k: v for k, v in os.environ.items() if not k.startswith("SECOPTY_")}
     clean.update(env)
     return subprocess.run([sys.executable, "-c", "import wsgi; print(wsgi.app.name)"], cwd=ROOT, env=clean,
                           capture_output=True, text=True)
@@ -171,7 +171,7 @@ def _import_wsgi(env):
 
 def test_wsgi_refuses_an_unsafe_configuration():
     r = _import_wsgi({})
-    assert r.returncode != 0 and "NETOPTY_FORM_SECRET" in r.stderr
+    assert r.returncode != 0 and "SECOPTY_FORM_SECRET" in r.stderr
     assert "x" * 10 not in r.stderr                             # never echoes configuration values
 
 
@@ -243,7 +243,7 @@ def test_smtp_ssl_mode(aged, fake_smtp):
 def test_smtp_auth_failure_is_reported_and_not_logged_in_detail(aged, fake_smtp, caplog):
     fake_smtp.fail_with = "auth"
     c = smtp_client()
-    with caplog.at_level(logging.INFO, logger="netopty_site"):
+    with caplog.at_level(logging.INFO, logger="secopty_site"):
         r = c.post("/api/enquiry", json=dict(GOOD, form_token=aged(c)))
     assert r.status_code == 502 and r.get_json()["ok"] is False
     logged = caplog.text
@@ -294,7 +294,7 @@ def public_files():
 # Sample report release: this test originally allowed no PDF at all.
 # One reviewed document is now published on purpose; it is exempt by exact path only, and
 # test_sample_report.py pins its bytes to the reviewed hash. Any other PDF still fails here.
-APPROVED_DOCUMENTS = {"samples/Netopty_Sample_Network_As-Built_Report.pdf"}
+APPROVED_DOCUMENTS = {"samples/Secopty_Sample_Network_As-Built_Report.pdf"}
 
 
 def test_public_contains_only_web_assets():
@@ -337,7 +337,7 @@ def test_demo_is_self_contained():
 
 
 # ------------------------------------------------------------------ anonymisation of published files
-RULES = Path(os.environ.get("NETOPTY_PRIVATE_RULES") or ROOT / "no-private-rules")
+RULES = Path(os.environ.get("SECOPTY_PRIVATE_RULES") or ROOT / "no-private-rules")
 
 
 def decoded_variants(text: str):
@@ -432,7 +432,7 @@ def _get(port, headers):
     return dict(r.getheaders())
 
 
-PROXY_HEADERS = {"X-Forwarded-Proto": "https", "X-Forwarded-For": "198.51.100.7", "X-Forwarded-Host": "netopty.com"}
+PROXY_HEADERS = {"X-Forwarded-Proto": "https", "X-Forwarded-For": "198.51.100.7", "X-Forwarded-Host": "secopty.com"}
 TRUSTED = dict(trusted_proxy="127.0.0.1", trusted_proxy_headers="x-forwarded-for x-forwarded-proto x-forwarded-host",
                clear_untrusted_proxy_headers=True)
 
@@ -456,7 +456,7 @@ def test_waitress_with_the_documented_flags_sees_https():
 
 
 def test_deployment_files_use_the_trusted_proxy_flags():
-    unit = (ROOT / "deploy" / "netopty-site.service").read_text(encoding="utf-8")
+    unit = (ROOT / "deploy" / "secopty-site.service").read_text(encoding="utf-8")
     assert "--trusted-proxy=127.0.0.1" in unit and "x-forwarded-proto" in unit and "--clear-untrusted-proxy-headers" in unit
     assert not re.search(r"\\n", unit)                       # no literal "\n" escape sequences
 
@@ -509,12 +509,12 @@ def test_reviewer_terms_come_from_the_account_and_a_private_file(tmp_path, monke
     import sys
     sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "build"))
     import review_sample_pdf as r
-    monkeypatch.delenv("NETOPTY_REVIEW_TERMS", raising=False)
+    monkeypatch.delenv("SECOPTY_REVIEW_TERMS", raising=False)
     monkeypatch.setattr(r.getpass, "getuser", lambda: "reviewer.one")
     assert r.reviewer_patterns() == {"account name": r"(?i)\breviewer\.one\b"}
     terms = tmp_path / "terms.json"
     terms.write_text(json.dumps({"account name": "(?i)example-reviewer"}), encoding="utf-8")
-    monkeypatch.setenv("NETOPTY_REVIEW_TERMS", str(terms))
+    monkeypatch.setenv("SECOPTY_REVIEW_TERMS", str(terms))
     assert r.reviewer_patterns() == {"account name": "(?i)example-reviewer"}
 
 

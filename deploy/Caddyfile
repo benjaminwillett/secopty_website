@@ -1,12 +1,12 @@
-# Netopty website: Caddy terminates HTTPS (automatic certificates) and compresses responses;
+# Secopty website: Caddy terminates HTTPS (automatic certificates) and compresses responses;
 # everything is proxied to waitress so the application sets every security header itself.
-netopty.com {
+secopty.com {
 	encode zstd gzip
 	# Caddy sends X-Forwarded-For/-Proto/-Host by default; waitress must trust them (see the unit file).
 	reverse_proxy 127.0.0.1:8080
 	header -Server
 	log {
-		output file /var/log/caddy/netopty-access.log {
+		output file /var/log/caddy/secopty-access.log {
 			roll_size 20MiB
 			roll_keep 10
 		}
@@ -14,6 +14,6 @@ netopty.com {
 	}
 }
 
-www.netopty.com {
-	redir https://netopty.com{uri} permanent
+www.secopty.com {
+	redir https://secopty.com{uri} permanent
 }

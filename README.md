@@ -1,9 +1,9 @@
-# Netopty marketing site
+# Secopty marketing site
 
-Single-page marketing site for https://netopty.com/. It is plain HTML, CSS and JavaScript, plus a small Flask server for the enquiry form. There is no frontend build step, and nothing at runtime depends on the Netopty product.
+Single-page marketing site for https://secopty.com/. It is plain HTML, CSS and JavaScript, plus a small Flask server for the enquiry form. There is no frontend build step, and nothing at runtime depends on the Secopty product.
 
 ```
-netopty_site/
+secopty_site/
   public/              everything that is served (the only folder to deploy as static files)
     index.html         the page
     css/site.css       styles (palette tokens at the top)
@@ -38,12 +38,12 @@ python tests/browser_smoke.py   # navigation, gallery, lightbox, demo, sample do
 
 Messages are sent by SMTP using the settings in `.env.example`, which are read from environment variables. Credentials are never sent to the browser.
 
-**Submissions are not enabled until SMTP is configured.** Until `NETOPTY_SMTP_HOST`, `NETOPTY_MAIL_FROM` and `NETOPTY_MAIL_TO` are set:
+**Submissions are not enabled until SMTP is configured.** Until `SECOPTY_SMTP_HOST`, `SECOPTY_MAIL_FROM` and `SECOPTY_MAIL_TO` are set:
 - the endpoint answers `503`;
 - the page tells the visitor their message was not sent;
 - `/healthz` reports `"mail_configured": false`.
 
-To enable submissions, set those variables (plus a username and password if the mail server needs them) and a long random `NETOPTY_FORM_SECRET`, then restart.
+To enable submissions, set those variables (plus a username and password if the mail server needs them) and a long random `SECOPTY_FORM_SECRET`, then restart.
 
 ## Deployment
 
@@ -51,7 +51,7 @@ See **DEPLOYMENT_GUIDE.md** (architecture, environment, procedure, rollback, ver
 
 ## Product images (`build/`)
 
-Every screenshot, report page and the interactive demo on the page was rendered by the **real, unmodified Netopty engine** from **synthetic evidence**. That evidence comes from the fictional Riverside Technology Group network (five sites, 124 devices), which was designed from scratch. No customer data is used.
+Every screenshot, report page and the interactive demo on the page was rendered by the **real, unmodified Secopty engine** from **synthetic evidence**. That evidence comes from the fictional Riverside Technology Group network (five sites, 124 devices), which was designed from scratch. No customer data is used.
 
 ```bash
 python build/make_synthetic_assets.py --platform <platform checkout> --platform-python <its Python>   # all stages, about 15 minutes
@@ -59,11 +59,11 @@ python build/make_synthetic_assets.py --platform <platform checkout> --platform-
 ```
 
 - **SYNTHETIC_NETWORK_DESIGN.md:** the network.
-- **SYNTHETIC_EVIDENCE_GENERATOR.md:** how it is written as Netopty evidence and run through the engine. The engine runs in isolation, from an allowlisted copy of its source, so it cannot read customer reference data.
+- **SYNTHETIC_EVIDENCE_GENERATOR.md:** how it is written as Secopty evidence and run through the engine. The engine runs in isolation, from an allowlisted copy of its source, so it cannot read customer reference data.
 
 ## Sample report download
 
-`public/samples/Netopty_Sample_Network_As-Built_Report.pdf` is the full synthetic headquarters report. It is the **only** document the site serves:
+`public/samples/Secopty_Sample_Network_As-Built_Report.pdf` is the full synthetic headquarters report. It is the **only** document the site serves:
 - the server returns 404 for any other `.pdf`;
 - the packager accepts the file only if its SHA-256 matches the reviewed version (`APPROVED_DOCUMENTS` in `build/package_release.py`).
 
