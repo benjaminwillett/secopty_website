@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /demo/
+
+Sitemap: https://netopty.com/sitemap.xml
