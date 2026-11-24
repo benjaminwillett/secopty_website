@@ -83,23 +83,10 @@ def run(base: str, out: Path) -> dict:
         check("no third-party requests on load", not perf["third_party"], perf["third_party"])
         check("sample report PDF not loaded initially", not any(".pdf" in u.lower() for u in requests))
 
-        # ---------------------------------------------------------------- sample report download and findings
-        dl = page.locator('#sample-reports a[href="/samples/Secopty_Sample_Network_As-Built_Report.pdf"]')
-        dl.scroll_into_view_if_needed()
-        check("download button visible in Sample Reports", dl.is_visible() and "Download full sample report" in dl.inner_text())
-        with page.expect_download() as d_info:
-            dl.click()
-        d = d_info.value
-        saved = out / "downloaded_sample.pdf"
-        d.save_as(str(saved))
-        public_pdf = Path(__file__).resolve().parents[1] / "public" / "samples" / "Secopty_Sample_Network_As-Built_Report.pdf"
-        check("download saves the reviewed PDF under its published name",
-              d.suggested_filename == "Secopty_Sample_Network_As-Built_Report.pdf"
-              and saved.read_bytes() == public_pdf.read_bytes(), d.suggested_filename)
-        saved.unlink()
+        # ---------------------------------------------------------------- findings
         cards = page.locator("#findings .insights > li")
         check("findings section has three cards", cards.count() == 3, cards.count())
-        check("findings heading", page.inner_text("#findings-title") == "More than documentation. Actionable network insights.")
+        check("findings heading", page.inner_text("#findings-title") == "Findings engineers can act on. Evidence auditors can verify.")
 
         # ---------------------------------------------------------------- navigation
         def settle():                                   # wait until smooth scrolling has stopped

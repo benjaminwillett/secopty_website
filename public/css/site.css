@@ -647,16 +647,16 @@ p { margin: 0; }
 /* ---------- Visual refresh (2026-11) ---------- */
 /* Light band: the white report pages sit on a light surface and break up the navy. */
 .section.band-light {
-  --text: #0b2236; --text-2: #3d5568; --text-3: #52687a; --card: #ffffff;
-  --border: rgba(11, 34, 54, 0.14); --border-strong: rgba(0, 127, 147, 0.5);
-  --cyan-soft: #00697b; --glow: 0 10px 34px -14px rgba(11, 34, 54, 0.35);
-  background: #eef3f7; color: var(--text); padding: 72px 0; color-scheme: light;
+  --text: #1c1033; --text-2: #4a3f66; --text-3: #5f5479; --card: #ffffff;
+  --border: rgba(28, 16, 51, 0.14); --border-strong: rgba(109, 40, 217, 0.5);
+  --cyan-soft: #5b21b6; --glow: 0 10px 34px -14px rgba(28, 16, 51, 0.35);
+  background: #f3f0fa; color: var(--text); padding: 72px 0; color-scheme: light;
 }
-.band-light .eyebrow, .band-light .section-head p.eyebrow { color: #00758a; }
+.band-light .eyebrow, .band-light .section-head p.eyebrow { color: #6d28d9; }
 .band-light a:hover { color: var(--text); }
 .band-light .btn-primary, .band-light .btn-primary:hover { color: #ffffff; }
 .band-light .shot-frame { border: 1px solid var(--border); }
-.band-light .shot-frame .zoom-hint { color: #f5f9fc; }
+.band-light .shot-frame .zoom-hint { color: #f7f5fc; }
 .band-light + .features { padding-top: 72px; }
 
 /* Small print stays readable. */
@@ -690,16 +690,16 @@ p { margin: 0; }
 /* Example finding, styled after the report's findings register */
 .finding-example { margin: 0 0 22px; }
 .finding-example figcaption { color: var(--text-2); font-size: 15px; margin-bottom: 10px; }
-.finding-card { background: #ffffff; color: #0b2236; border-radius: var(--radius); padding: 24px 26px; border-left: 6px solid #d9822b; }
-.finding-card h3 { color: #0b2236; font-size: 22px; margin-top: 12px; }
-.finding-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; font-size: 14.5px; color: #3d5568; }
+.finding-card { background: #ffffff; color: #1c1033; border-radius: var(--radius); padding: 24px 26px; border-left: 6px solid #d9822b; }
+.finding-card h3 { color: #1c1033; font-size: 22px; margin-top: 12px; }
+.finding-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; font-size: 14.5px; color: #4a3f66; }
 .sev-badge { display: inline-block; padding: 5px 12px; border-radius: 6px; font: 700 12.5px/1 var(--font-body); letter-spacing: .06em; text-transform: uppercase; color: #fff; }
 .sev-medium { background: #b9650f; }
 .finding-id { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; }
 .finding-card dl { margin: 14px 0 0; }
-.finding-card dl div { display: grid; grid-template-columns: 180px 1fr; gap: 4px 20px; padding: 10px 0; border-top: 1px solid rgba(11, 34, 54, 0.12); }
+.finding-card dl div { display: grid; grid-template-columns: 180px 1fr; gap: 4px 20px; padding: 10px 0; border-top: 1px solid rgba(28, 16, 51, 0.12); }
 .finding-card dt { font-weight: 600; }
-.finding-card dd { margin: 0; color: #2c4458; }
+.finding-card dd { margin: 0; color: #3a2f55; }
 @media (max-width: 640px) { .finding-card { padding: 18px; } .finding-card dl div { grid-template-columns: 1fr; } }
 
 /* Manual cost estimate */
@@ -724,3 +724,11 @@ p { margin: 0; }
 .vendor-grid { justify-content: flex-start; max-width: none; margin-left: 0; margin-right: 0; }
 .vendor-support .vendor-note { margin-left: 0; margin-right: 0; text-align: left; }
 .coverage-guide { max-width: none; margin: 28px 0 0; }
+
+/* ---------- Secopty report pages (2026-11) ---------- */
+.sev-high { background: #b42318; }
+.finding-card.finding-high { border-left-color: #b42318; }
+/* The five reports and the evidence record: three cards a row, two on tablets. */
+@media (max-width: 1080px) and (min-width: 641px) { .report-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* Report previews are landscape pages: show the whole page in the card. */
+#sample-reports .shot-frame img { aspect-ratio: 3 / 2; padding: 0; }

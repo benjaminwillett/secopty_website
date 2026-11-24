@@ -7,10 +7,8 @@ secopty_site/
   public/              everything that is served (the only folder to deploy as static files)
     index.html         the page
     css/site.css       styles (palette tokens at the top)
-    js/site.js         navigation, lightbox, topology demo loader, enquiry form
+    js/site.js         navigation, lightbox, enquiry form
     img/               logo, generated product images (WebP), social image, touch icon
-    demo/topology.html interactive topology demo (demonstration data, plotly.js inlined)
-    samples/           the one downloadable document: the reviewed synthetic sample report (PDF)
     robots.txt, sitemap.xml
   server.py            serves public/ and the enquiry API
   wsgi.py              production entry point (refuses an unsafe configuration)
@@ -61,12 +59,10 @@ python build/make_synthetic_assets.py --platform <platform checkout> --platform-
 - **SYNTHETIC_NETWORK_DESIGN.md:** the network.
 - **SYNTHETIC_EVIDENCE_GENERATOR.md:** how it is written as Secopty evidence and run through the engine. The engine runs in isolation, from an allowlisted copy of its source, so it cannot read customer reference data.
 
-## Sample report download
+## Report previews and documents
 
-`public/samples/Secopty_Sample_Network_As-Built_Report.pdf` is the full synthetic headquarters report. It is the **only** document the site serves:
-- the server returns 404 for any other `.pdf`;
-- the packager accepts the file only if its SHA-256 matches the reviewed version (`APPROVED_DOCUMENTS` in `build/package_release.py`).
-
-Before replacing it, run `build/review_sample_pdf.py` (structure, metadata, bookmarks, links, paths and real identifiers, with every page treated as published), then view every page.
-
+The report pages on the homepage are illustrative layouts built from synthetic data by `build/make_report_previews.py`.
+The site publishes no downloadable document: the server returns 404 for every `.pdf`, and `APPROVED_DOCUMENTS` in
+`build/package_release.py` is empty. To publish one, review it with `build/review_sample_pdf.py`, view every page,
+then add its path and SHA-256 there.
 

@@ -24,9 +24,7 @@ ALLOWED_PUBLIC = {".html", ".css", ".js", ".webp", ".png", ".svg", ".ico", ".wof
 FORBIDDEN_NAMES = {"private_rules.json", ".env", "manifest.json"}
 FORBIDDEN_SUFFIXES = {".pdf", ".xlsx", ".json", ".dot", ".py", ".pyc", ".log", ".zip"}
 # public/ path -> SHA-256 of the reviewed file.
-APPROVED_DOCUMENTS = {
-    "public/samples/Secopty_Sample_Network_As-Built_Report.pdf": "f77bd74ca0b59ce7aeb1296402a69ae79a9fec6bbbae83c7b442aae0f8bfef33",
-}
+APPROVED_DOCUMENTS: dict[str, str] = {}   # none published: Secopty has no downloadable document yet
 
 
 def collect() -> list[Path]:

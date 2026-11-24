@@ -107,7 +107,7 @@ curl -sI http://secopty.com/ | head -1              # 308 redirect to https
 # Proxy headers reach the app: HSTS present above; a 6th test enquiry from one address in an hour gets 429, not the whole site.
 curl -sI https://www.secopty.com/ | grep -i location
 curl -s -o /dev/null -w '%{http_code}\n' https://secopty.com/server.py   # 404
-curl -sI -H 'Accept-Encoding: gzip' https://secopty.com/demo/topology.html | grep -i content-encoding
+curl -sI -H 'Accept-Encoding: gzip' https://secopty.com/css/site.css | grep -i content-encoding
 python tests/browser_smoke.py --base https://secopty.com --out smoke_prod   # read-only; submits no enquiry
 ```
 

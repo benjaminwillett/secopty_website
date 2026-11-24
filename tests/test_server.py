@@ -126,7 +126,7 @@ def test_only_public_files_are_served():
     assert c.get("/../server.py").status_code == 404
     assert c.get("/%2e%2e/server.py").status_code == 404
     assert c.get("/index.html%00").status_code == 404
-    assert c.get("/samples/Secopty_Sample_Network_As-Built_Report.pdf%00.html").status_code == 404
+    assert c.get("/img/og-image.png%00.html").status_code == 404
 
 
 def test_security_headers():

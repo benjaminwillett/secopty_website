@@ -95,16 +95,6 @@ def test_site_csp_allows_no_third_parties():
     assert "frame-ancestors 'none'" in csp
 
 
-def test_demo_is_sandboxed_and_only_framed_by_the_site():
-    r = client().get("/demo/topology.html")
-    assert r.status_code == 200
-    csp = r.headers["Content-Security-Policy"]
-    assert csp.startswith("sandbox allow-scripts;") and "allow-same-origin" not in csp
-    assert "'unsafe-eval'" not in csp                     # plotly renders and interacts without it
-    assert "frame-ancestors 'self'" in csp and "connect-src" not in csp   # default-src 'none' covers fetches
-    assert "X-Frame-Options" not in r.headers
-
-
 def test_api_responses_are_not_cached():
     c = client()
     assert c.get("/api/form-token").headers["Cache-Control"] == "no-store"
@@ -291,10 +281,8 @@ def public_files():
     return [p for p in PUBLIC.rglob("*") if p.is_file()]
 
 
-# Sample report release: this test originally allowed no PDF at all.
-# One reviewed document is now published on purpose; it is exempt by exact path only, and
-# test_sample_report.py pins its bytes to the reviewed hash. Any other PDF still fails here.
-APPROVED_DOCUMENTS = {"samples/Secopty_Sample_Network_As-Built_Report.pdf"}
+# No document is published. A reviewed one would be exempted here by exact path only.
+APPROVED_DOCUMENTS: set[str] = set()
 
 
 def test_public_contains_only_web_assets():
@@ -320,20 +308,13 @@ def test_every_referenced_asset_exists():
     assert missing == []
 
 
-def test_gallery_has_the_seven_figures():
+def test_gallery_has_one_preview_per_report():
     page = (PUBLIC / "index.html").read_text(encoding="utf-8")
     titles = re.findall(r'<figure class="shot-card">\s*<h3>([^<]+)</h3>', page)
-    assert titles == ["Executive summary", "Physical topology", "Findings register", "Access and addressing services",
-                      "Key risks and next actions", "Engineering connectivity", "Readiness assessment"]
-
-
-def test_demo_is_self_contained():
-    demo = (PUBLIC / "demo" / "topology.html").read_text(encoding="utf-8")
-    assert 'name="robots" content="noindex"' in demo
-    assert not re.search(r'<(?:script|link|img|iframe)[^>]+(?:src|href)="(?:https?:)?//', demo, re.I)
-    assert "Download Visio" in demo and "MutationObserver" in demo     # the unavailable controls are hidden
-    # Website defaults (owner request): every node shown, icon view on.
-    assert "var hideLeaf = false;" in demo and "var ICON_DEFAULT = true;" in demo
+    assert titles == ["Vulnerabilities and upgrades", "Firewall policy review", "Device hardening",
+                      "Network segmentation", "End-of-life and vendor support"]
+    # The previews are illustrative layouts, and the page says so beside them.
+    assert "Reporting capabilities are in development." in page
 
 
 # ------------------------------------------------------------------ anonymisation of published files
@@ -365,11 +346,6 @@ def without_vendored_plotly(text: str) -> str:
         if hashlib.sha256(m.group(1).encode("utf-8")).hexdigest() == PLOTLY_SHA256:
             return text[:m.start()] + text[m.end():]
     return text
-
-
-def test_demo_inlines_the_pinned_plotly_build():
-    demo = (PUBLIC / "demo" / "topology.html").read_text(encoding="utf-8")
-    assert without_vendored_plotly(demo) != demo
 
 
 @pytest.mark.skipif(not RULES.exists(), reason="private rules are only on the asset build machine")

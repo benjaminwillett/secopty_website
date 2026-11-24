@@ -15,7 +15,11 @@
   <meta property="og:title" content="Secopty | Enterprise Network Security &amp; Compliance Reporting">
   <meta property="og:description" content="Secopty scopes network security reviews covering vulnerabilities, firewall policy, device hardening, segmentation and vendor support.">
   <meta property="og:locale" content="en_AU">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://secopty.com/img/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Illustrative Secopty network security and compliance report pages for the fictional Riverside Technology Group">
+  <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" href="/img/secopty-mark.svg" type="image/svg+xml">
   <link rel="icon" href="/img/favicon-32.png" type="image/png" sizes="32x32">
@@ -25,6 +29,7 @@
   <link rel="preload" href="/fonts/poppins-latin-600.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/inter-latin-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/css/site.css">
+  <link rel="preload" as="image" href="/img/hero/cover-640.webp" type="image/webp">
 
   <script src="/js/site.js" defer></script>
 </head>
@@ -43,9 +48,9 @@
       </button>
       <nav class="site-nav" id="site-nav" aria-label="Main">
         <ul class="nav-list">
-          <li><a href="#services">Services</a></li>
+          <li><a href="#services">Reports</a></li>
           <li><a href="#how-it-works">How It Works</a></li>
-          <li><a href="#sample-reports">Sample Reports</a></li>
+          <li><a href="#sample-reports">Report Previews</a></li>
           <li><a href="#pricing">Engagement</a></li>
           <li><a href="#contact">Contact</a></li>
           <li><a class="btn btn-primary btn-sm" href="#enquire">Discuss your assessment</a></li>
@@ -55,64 +60,288 @@
   </header>
 
   <main id="main">
+    <!-- Hero -->
     <section class="hero" aria-labelledby="hero-title">
       <div class="container hero-grid">
         <div>
           <p class="eyebrow">Network security &amp; compliance reporting</p>
           <h1 id="hero-title">Know what to fix. <span class="accent">Show your evidence.</span></h1>
           <p class="hero-lede">Review vulnerabilities, firewall rules and network controls with findings your engineers can act on and evidence your auditors can verify.</p>
+          <p class="hero-proof"><strong>Five reports from one set of evidence:</strong> vulnerabilities, firewall policy, device hardening, segmentation and vendor support.</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#enquire">Discuss your assessment</a>
-            <a class="btn btn-secondary" href="#sample-reports">Explore report previews</a>
+            <a class="btn btn-primary" href="#enquire">Discuss your assessment
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a href="#sample-reports" class="btn btn-secondary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>
+              Explore report previews
+            </a>
           </div>
         </div>
-        <div class="feature">
-          <p class="eyebrow">Illustrative audit evidence</p>
-          <h2>Privileged local account</h2>
-          <p>A local administrator account was found on a headquarters switch. Its owner needs verification against the approved account register.</p>
-          <p><strong>Evidence:</strong> Redacted device configuration and account register.</p>
+
+        <div class="report-stack" role="group" aria-label="Illustrative pages from a Secopty network security and compliance report for a fictional network">
+          <button class="page page-3" type="button" aria-label="Enlarge report page: user accounts and admin access" data-lightbox="hero" data-full="/img/hero/page3-full.webp" data-title="User accounts and admin access" data-caption="Illustrative device hardening page: local accounts compared with the approved account register.">
+            <img src="/img/hero/page3-480.webp" alt="Report page listing local accounts, with one administrator account whose owner requires verification" width="480" height="679" decoding="async">
+          </button>
+          <button class="page page-2" type="button" aria-label="Enlarge report page: assessment overview" data-lightbox="hero" data-full="/img/hero/page2-full.webp" data-title="Assessment overview" data-caption="Illustrative overview page: findings by report, audit evidence and coverage, and priority actions.">
+            <img src="/img/hero/page2-480.webp" alt="Report page showing findings by report and the audit evidence collected" width="480" height="679" decoding="async">
+          </button>
+          <button class="page page-1" type="button" aria-label="Enlarge report cover" data-lightbox="hero" data-full="/img/hero/cover-full.webp" data-title="Network Security and Compliance Report: RTG-HQ" data-caption="Illustrative report cover for the Riverside Technology Group headquarters (fictional organisation, synthetic data).">
+            <img src="/img/hero/cover-640.webp" srcset="/img/hero/cover-640.webp 640w, /img/hero/cover-1200.webp 1200w" sizes="(max-width: 880px) 62vw, 340px" alt="Cover of an illustrative Secopty Network Security and Compliance Report for RTG-HQ, the fictional Riverside Technology Group headquarters" width="640" height="905" fetchpriority="high">
+          </button>
         </div>
       </div>
     </section>
-    <section class="section band-light" id="services" aria-labelledby="services-title">
-      <div class="container"><div class="section-head"><h2 id="services-title">Five network security reports</h2></div>
-<ul class="gallery-row-3"><li class="feature"><h3>Vulnerabilities and upgrades</h3><p>Match device models and installed software to vendor advisories. See applicable CVEs, supported target releases and fixes that need manual verification.</p></li><li class="feature"><h3>Firewall policy review</h3><p>Read Palo Alto, Cisco ASA and Check Point rules in plain English. Filter by source, destination, service, action and logging, then trace a finding back to the original rule.</p></li><li class="feature"><h3>Device hardening</h3><p>Check management access, logging and other settings against your baseline. Review local accounts, administrator privileges, approved emergency accounts and gaps in central authentication evidence.</p></li><li class="feature"><h3>Network segmentation</h3><p>Assess agreed boundaries using firewall policies, routing and NAT. See which paths are permitted by the evidence and which need verification.</p></li><li class="feature"><h3>End-of-life and vendor support</h3><p>Identify devices approaching the end of security updates and prioritise upgrades or replacement using vendor lifecycle notices.</p></li></ul>
+
+    <!-- Report previews -->
+    <section class="section band-light" id="sample-reports" aria-labelledby="output-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Report previews</p>
+          <h2 id="output-title">Explore the security report previews.</h2>
+          <p>One page from each of the five reports, laid out for a fictional headquarters network of 20 switches and 2 firewalls.</p>
+        </div>
+
+        <div class="gallery" data-gallery>
+          <div class="gallery-row-3">
+            <figure class="shot-card">
+              <h3>Vulnerabilities and upgrades</h3>
+              <button class="shot-frame" type="button" data-lightbox="gallery" data-full="/img/gallery/vulnerabilities-full.webp" data-title="Vulnerabilities and upgrades" data-caption="Section 2: applicable advisories and target releases, RTG-HQ">
+                <img src="/img/gallery/vulnerabilities-800.webp" srcset="/img/gallery/vulnerabilities-800.webp 800w, /img/gallery/vulnerabilities-1400.webp 1400w" sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 1080px) 46vw, 390px" alt="Illustrative Secopty report page, vulnerabilities and upgrades, for the fictional Riverside Technology Group" width="800" height="533" loading="lazy" decoding="async">
+                <span class="fig-caption">Section 2: applicable advisories and target releases, RTG-HQ</span>
+                <span class="zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span>
+              </button>
+              <figcaption>Each device matched to vendor advisories by model and installed software, with the supported target release and the rows that need manual verification.</figcaption>
+            </figure>
+            <figure class="shot-card">
+              <h3>Firewall policy review</h3>
+              <button class="shot-frame" type="button" data-lightbox="gallery" data-full="/img/gallery/firewall-full.webp" data-title="Firewall policy review" data-caption="Section 3: rulebook in plain English, RTG-HQ">
+                <img src="/img/gallery/firewall-800.webp" srcset="/img/gallery/firewall-800.webp 800w, /img/gallery/firewall-1400.webp 1400w" sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 1080px) 46vw, 390px" alt="Illustrative Secopty report page, firewall policy review, for the fictional Riverside Technology Group" width="800" height="533" loading="lazy" decoding="async">
+                <span class="fig-caption">Section 3: rulebook in plain English, RTG-HQ</span>
+                <span class="zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span>
+              </button>
+              <figcaption>Every rule described in plain English, filtered by source, destination, service, action and logging, and linked to the original rule.</figcaption>
+            </figure>
+            <figure class="shot-card">
+              <h3>Device hardening</h3>
+              <button class="shot-frame" type="button" data-lightbox="gallery" data-full="/img/gallery/hardening-full.webp" data-title="Device hardening" data-caption="Section 4: baseline results by device group, RTG-HQ">
+                <img src="/img/gallery/hardening-800.webp" srcset="/img/gallery/hardening-800.webp 800w, /img/gallery/hardening-1400.webp 1400w" sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 1080px) 46vw, 390px" alt="Illustrative Secopty report page, device hardening, for the fictional Riverside Technology Group" width="800" height="533" loading="lazy" decoding="async">
+                <span class="fig-caption">Section 4: baseline results by device group, RTG-HQ</span>
+                <span class="zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span>
+              </button>
+              <figcaption>Management access, logging and other settings checked against the agreed baseline, with local accounts and gaps in central authentication evidence.</figcaption>
+            </figure>
+          </div>
+          <div class="gallery-row-2">
+            <figure class="shot-card">
+              <h3>Network segmentation</h3>
+              <button class="shot-frame" type="button" data-lightbox="gallery" data-full="/img/gallery/segmentation-full.webp" data-title="Network segmentation" data-caption="Section 5: paths between agreed boundaries, RTG-HQ">
+                <img src="/img/gallery/segmentation-800.webp" srcset="/img/gallery/segmentation-800.webp 800w, /img/gallery/segmentation-1400.webp 1400w" sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 1080px) 46vw, 590px" alt="Illustrative Secopty report page, network segmentation, for the fictional Riverside Technology Group" width="800" height="533" loading="lazy" decoding="async">
+                <span class="fig-caption">Section 5: paths between agreed boundaries, RTG-HQ</span>
+                <span class="zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span>
+              </button>
+              <figcaption>Firewall policy, routing and NAT combined to show which paths the evidence permits and which need verification.</figcaption>
+            </figure>
+            <figure class="shot-card">
+              <h3>End-of-life and vendor support</h3>
+              <button class="shot-frame" type="button" data-lightbox="gallery" data-full="/img/gallery/lifecycle-full.webp" data-title="End-of-life and vendor support" data-caption="Section 6: security update timeline, RTG-HQ">
+                <img src="/img/gallery/lifecycle-800.webp" srcset="/img/gallery/lifecycle-800.webp 800w, /img/gallery/lifecycle-1400.webp 1400w" sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 1080px) 46vw, 590px" alt="Illustrative Secopty report page, end-of-life and vendor support, for the fictional Riverside Technology Group" width="800" height="533" loading="lazy" decoding="async">
+                <span class="fig-caption">Section 6: security update timeline, RTG-HQ</span>
+                <span class="zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Enlarge</span>
+              </button>
+              <figcaption>When security updates end for each hardware model and software release, with upgrades and replacements in priority order.</figcaption>
+            </figure>
+          </div>
+        </div>
+        <p class="sample-note">Illustrative layouts for the fictional Riverside Technology Group, using synthetic data. Advisory identifiers, software releases and lifecycle dates are placeholders. Reporting capabilities are in development.</p>
       </div>
     </section>
-    <section class="section band-light" id="sample-reports" aria-labelledby="sample-reports-title">
-      <div class="container"><div class="section-head"><h2 id="sample-reports-title">Explore a security report preview</h2></div>
-<p class="sample-note">Illustrative output for the fictional Riverside Technology Group. Reporting capabilities are in development.</p>
-<figure class="feature">
-  <a href="secopty-security-report-preview.webp">
-    <img src="secopty-security-report-preview.webp" width="1536" height="1024" loading="lazy" alt="Synthetic Secopty report overview and local administrator account review">
-  </a>
-  <figcaption>Open the fictional report mockup at full size.</figcaption>
-  <figcaption><strong>Device hardening · User accounts and admin access</strong></figcaption>
-  <p>RTG-HQ · Local administrator inventory</p>
-  <dl>
-    <dt>rtg-emergency · Administrator</dt><dd>Approved emergency access</dd>
-    <dt>rtg-legacy · Administrator</dt><dd>Account owner requires verification</dd>
-    <dt>rtg-monitor · Read-only</dt><dd>Approved monitoring account</dd>
-  </dl>
-  <p>TACACS+ is configured. Central group membership and assigned privileges require separate evidence.</p>
-</figure>
+
+    <!-- The five reports -->
+    <section class="features" id="services" aria-labelledby="services-title">
+      <div class="container">
+        <div class="section-head services-head">
+          <p class="eyebrow">What we assess</p>
+          <h2 id="services-title">Five network security reports.</h2>
+          <p>Choose the reports you need. Each one records its scope, its collection date and any gaps in the evidence.</p>
+        </div>
+        <ul class="benefits insights report-cards">
+          <li class="benefit">
+            <div class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 2.4 17.5A2 2 0 0 0 4.1 20.5h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4.5M12 17h.01"/></svg></div>
+            <h3>Vulnerabilities and upgrades</h3>
+            <p>Match device models and installed software to vendor advisories. See applicable CVEs, supported target releases and fixes that need manual verification.</p>
+          </li>
+          <li class="benefit">
+            <div class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="1.5"/><path d="M3 9.5h18M3 14.5h18M9 4.5v5M15 9.5v5M9 14.5v5"/></svg></div>
+            <h3>Firewall policy review</h3>
+            <p>Read Palo Alto, Cisco ASA and Check Point rules in plain English. Filter by source, destination, service, action and logging, then trace a finding back to the original rule.</p>
+          </li>
+          <li class="benefit">
+            <div class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3M12 14.5v2.5"/></svg></div>
+            <h3>Device hardening</h3>
+            <p>Check management access, logging and other settings against your baseline. Review local accounts, administrator privileges, approved emergency accounts and gaps in central authentication evidence.</p>
+          </li>
+          <li class="benefit">
+            <div class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg></div>
+            <h3>Network segmentation</h3>
+            <p>Assess agreed boundaries using firewall policies, routing and NAT. See which paths are permitted by the evidence and which need verification.</p>
+          </li>
+          <li class="benefit">
+            <div class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/></svg></div>
+            <h3>End-of-life and vendor support</h3>
+            <p>Identify devices approaching the end of security updates and prioritise upgrades or replacement using vendor lifecycle notices.</p>
+          </li>
+          <li class="benefit">
+            <div class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><circle cx="11.5" cy="14" r="2.5"/><path d="m13.4 15.9 2.1 2.1"/></svg></div>
+            <h3>Audit evidence and coverage</h3>
+            <p>Included with every report: the scope assessed, the date the evidence was collected and the checks that could not be completed.</p>
+          </li>
+        </ul>
       </div>
     </section>
-    <section class="section band-light" id="how-it-works" aria-labelledby="how-title">
-      <div class="container"><div class="section-head"><h2 id="how-title">From network evidence to audit findings</h2></div>
-<ol class="arch-flow"><li><h4>Collect evidence</h4><p>Agree the scope, then collect authorised read-only configuration and inventory exports.</p></li><li><h4>Assess controls</h4><p>Check agreed baselines and vendor guidance. Record the scope, collection date and evidence gaps.</p></li><li><h4>Review and refresh</h4><p>Give engineers a prioritised list of fixes. Show auditors results, approved exceptions and changes between assessments.</p></li></ol>
+
+    <!-- How it works -->
+    <section class="section" id="how-it-works" aria-labelledby="how-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">How it works</p>
+          <h2 id="how-title">From network evidence to audit findings.</h2>
+          <p>Three steps take you from agreed scope to findings and evidence you can hand to engineers and auditors.</p>
+        </div>
+        <ol class="steps" role="list">
+          <li class="step">
+            <span class="step-number" aria-hidden="true">1</span>
+            <h3>Collect evidence</h3>
+            <p>Agree the scope, then collect authorised read-only configuration and inventory exports.</p>
+          </li>
+          <li class="step">
+            <span class="step-number" aria-hidden="true">2</span>
+            <h3>Assess controls</h3>
+            <p>Check agreed baselines and vendor guidance. Record the scope, collection date and evidence gaps.</p>
+          </li>
+          <li class="step">
+            <span class="step-number" aria-hidden="true">3</span>
+            <h3>Review and refresh</h3>
+            <p>Give engineers a prioritised list of fixes. Show auditors results, approved exceptions and changes between assessments.</p>
+          </li>
+        </ol>
+
+        <section class="architecture" id="evidence-needed" aria-labelledby="evidence-title">
+          <h3 id="evidence-title">What evidence we need</h3>
+          <p class="sample-note">Every report starts from your inventory and configuration exports. Some checks need more.</p>
+          <ul class="prerequisite-list">
+            <li class="feature"><h4>Device inventory and software versions</h4><p>The devices in scope, with their models and installed software, for the vulnerability and vendor support reports.</p></li>
+            <li class="feature"><h4>Authorised configuration exports</h4><p>Read-only exports of switch and firewall configuration, including firewall rules, routing and NAT.</p></li>
+            <li class="feature"><h4>Account register and identity evidence</h4><p>Your approved account register, and identity-system evidence where central group membership and privileges are in scope.</p></li>
+            <li class="feature"><h4>Documented network boundaries</h4><p>The boundaries you have agreed between networks, so the segmentation report has something to assess against.</p></li>
+          </ul>
+        </section>
       </div>
     </section>
-    <section class="section band-light" id="pricing" aria-labelledby="pricing-title">
-      <div class="container"><div class="section-head"><h2 id="pricing-title">Scope your assessment</h2></div>
-<p>Start with the devices, sites and controls you need to review. Agree which reports you need, what evidence is available and whether to schedule repeat assessments.</p>
+
+    <!-- Findings showcase -->
+    <section class="section tight-top" id="findings" aria-labelledby="findings-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Findings and evidence</p>
+          <h2 id="findings-title">Findings engineers can act on. Evidence auditors can verify.</h2>
+          <p>Each finding names the devices it affects, the evidence it rests on and the next step.</p>
+        </div>
+        <figure class="finding-example" aria-labelledby="finding-example-title">
+          <figcaption id="finding-example-title">An illustrative finding from the device hardening report</figcaption>
+          <div class="finding-card finding-high">
+            <p class="finding-head"><span class="sev-badge sev-high">High</span><span class="finding-id">F-HRD-2A91C4</span><span class="finding-confidence">Device hardening · User accounts</span></p>
+            <h3>Privileged local account with no verified owner</h3>
+            <dl>
+              <div><dt>Affected</dt><dd>c9300-hq-a04, a headquarters access switch</dd></div>
+              <div><dt>Evidence</dt><dd>Redacted device configuration and the approved account register</dd></div>
+              <div><dt>Recommended action</dt><dd>Verify the account owner against the approved account register. Remove the account, or record it as an approved exception.</dd></div>
+            </dl>
+          </div>
+        </figure>
+        <ul class="benefits insights">
+          <li class="benefit">
+            <div class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h10M4 12h7M4 18h4"/><path d="m15 15 3 3 3-3M18 8v10"/></svg></div>
+            <h3>For engineers: a prioritised list</h3>
+            <p>Fixes in priority order, each traced to the device, rule or setting it comes from.</p>
+          </li>
+          <li class="benefit">
+            <div class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6v6c0 4.4 3.1 7.6 7.5 9 4.4-1.4 7.5-4.6 7.5-9V6z"/><path d="m8.8 12 2.3 2.3 4.2-4.6"/></svg></div>
+            <h3>For auditors: results and evidence</h3>
+            <p>A summary mapped to agreed controls, with source evidence, coverage gaps and approved exceptions.</p>
+          </li>
+          <li class="benefit">
+            <div class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 0 1-14.3 4.9M4 12a8 8 0 0 1 14.3-4.9"/><path d="M18.5 3v4.2h-4.2M5.5 21v-4.2h4.2"/></svg></div>
+            <h3>Between assessments: what changed</h3>
+            <p>Repeat an assessment to show which findings were fixed, which remain and what is new.</p>
+          </li>
+        </ul>
+        <p class="insight-note">The finding above is illustrative and uses the fictional Riverside Technology Group network. Secopty provides evidence against the agreed network controls. The auditor determines the compliance outcome.</p>
       </div>
     </section>
-    <section class="section band-light" id="questions" aria-labelledby="questions-title">
-      <div class="container"><div class="section-head"><h2 id="questions-title">Questions about Secopty</h2></div>
-<details><summary>What will auditors receive?</summary><p>A summary mapped to agreed controls, with source evidence, coverage gaps and exceptions. The planned firewall rulebook and account inventory are designed for filtering.</p></details>
-<details><summary>What evidence is needed?</summary><p>Device inventory, software versions and authorised configuration exports. Some checks also need identity-system evidence, an approved account register or documented network boundaries.</p></details>
-<details><summary>Does a report certify compliance?</summary><p>Secopty provides evidence against the agreed network controls. The auditor determines the compliance outcome.</p></details>
+
+    <!-- Engagement -->
+    <section class="section tight-top" id="pricing" aria-labelledby="pricing-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Engagement &amp; scoping</p>
+          <h2 id="pricing-title">Scope your assessment.</h2>
+          <p>Start with the devices, sites and controls you need to review.</p>
+        </div>
+        <ul class="engagement">
+          <li>
+            <p class="tag">Scoping</p>
+            <h3>What we agree first</h3>
+            <ul>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>The devices and sites in scope</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>The controls and baselines to assess against</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>Which of the five reports you need</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>What evidence is available</li>
+            </ul>
+          </li>
+          <li>
+            <p class="tag">Repeat assessments</p>
+            <h3>Assessments on a schedule</h3>
+            <ul>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>Whether to schedule repeat assessments, and how often</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>Refreshed evidence with a new collection date</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>Results, approved exceptions and changes since the last assessment</li>
+            </ul>
+          </li>
+        </ul>
+        <div class="engagement-foot">
+          <p>Agree which reports you need, what evidence is available and whether to schedule repeat assessments.</p>
+          <a class="btn btn-primary" href="#enquire">Discuss your assessment
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section tight-top vendor-support" aria-labelledby="vendors-title">
+      <div class="container">
+        <h2 id="vendors-title">Firewall platforms in the policy review</h2>
+        <ul class="vendor-grid" role="list">
+          <li><img src="/img/vendors/palo.svg" alt="Palo Alto Networks" loading="lazy" decoding="async"></li>
+          <li class="vendor-card-labeled"><img src="/img/vendors/cisco.svg" alt="" loading="lazy" decoding="async"><span class="vendor-label">Cisco ASA</span></li>
+          <li><img src="/img/vendors/checkpoint.svg" alt="Check Point" loading="lazy" decoding="async"></li>
+        </ul>
+        <p class="vendor-note">Tell us the device models and software in your inventory and we will confirm what each report can cover.</p>
+      </div>
+    </section>
+
+    <!-- Questions -->
+    <section class="section tight-top" id="questions" aria-labelledby="questions-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="questions-title">Questions about Secopty</h2>
+        </div>
+        <div class="faq-list">
+          <details class="feature"><summary>What will auditors receive?</summary><p>A summary mapped to agreed controls, with source evidence, coverage gaps and exceptions. The planned firewall rulebook and account inventory are designed for filtering.</p></details>
+          <details class="feature"><summary>What evidence is needed?</summary><p>Device inventory, software versions and authorised configuration exports. Some checks also need identity-system evidence, an approved account register or documented network boundaries. <a href="#evidence-needed">See what evidence we need.</a></p></details>
+          <details class="feature"><summary>Does a report certify compliance?</summary><p>Secopty provides evidence against the agreed network controls. The auditor determines the compliance outcome.</p></details>
+          <details class="feature"><summary>Are the reports available now?</summary><p>Reporting capabilities are in development. The <a href="#sample-reports">report previews</a> on this page are illustrative layouts that use synthetic data for a fictional organisation.</p></details>
+        </div>
       </div>
     </section>
 
@@ -123,7 +352,7 @@
           <svg class="cta-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M28 5H13a4 4 0 0 0-4 4v30a4 4 0 0 0 4 4h22a4 4 0 0 0 4-4V16z"/><path d="M28 5v11h11M17 25h14M17 31h14M17 37h9"/></svg>
           <div class="cta-copy">
             <h2 id="cta-title">Discuss your network security assessment.</h2>
-            <p>Tell us which sites, devices and controls are in scope.</p>
+            <p>Tell us which sites, devices and controls are in scope, and which reports you need.</p>
           </div>
           <div class="enquiry-actions">
             <a id="enquiry-address" class="btn btn-primary" href="mailto:enquiries@secopty.com?subject=Secopty%20enquiry">enquiries@secopty.com</a>
@@ -210,9 +439,9 @@
         <span>Secopty</span>
       </a>
       <ul class="footer-links">
-        <li><a href="#services">Services</a></li>
+        <li><a href="#services">Reports</a></li>
         <li><a href="#how-it-works">How It Works</a></li>
-        <li><a href="#sample-reports">Sample Reports</a></li>
+        <li><a href="#sample-reports">Report Previews</a></li>
         <li><a href="#pricing">Engagement</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
